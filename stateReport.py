@@ -2,8 +2,9 @@ import tkinter as tk
 from tkinter import filedialog
 import openpyxl
 import datetime
-import time
 from tkinter import messagebox
+
+
 now = datetime.datetime.now()
 today = (str(now.month) + str(now.day) + str(now.year))
 
