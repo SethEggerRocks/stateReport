@@ -24,22 +24,22 @@ messagebox.showinfo("Choose File", "Choose Spreadsheet Containing Identifiers.")
 file_path2 = filedialog.askopenfilename()
 helloFile2 = open(file_path2, "r")
 
-glc_wb = openpyxl.load_workbook(file_path2)    # This spreadsheet contains all the identifiers I need
-glc_sheet = glc_wb.get_sheet_by_name("Sheet1")
-glc_otherThing = glc_sheet.max_row
+state_wb = openpyxl.load_workbook(file_path2)    # This spreadsheet contains all the identifiers I need
+state_sheet = state_wb.get_sheet_by_name("Sheet1")
+state_otherThing = state_sheet.max_row
 
-glc_emptyList = []
-glc_asaList = []
-glc_completedList = []
-glc_arrestedList = []
-glc_dischargedList = []
+state_emptyList = []
+state_asaList = []
+state_completedList = []
+state_arrestedList = []
+state_dischargedList = []
 
 
 def thisIsCool():                    # This is our function that opens a specific text file and then searches through it for Identifierss
     with open(file_path) as f:
-        glcNumbers()
+        stateNumbers()
         for line in f:
-            for i in glc_emptyList:
+            for i in state_emptyList:
                 if str(i) != str(line[10:19]):
                     continue
                 elif str(i) == str(line[10:19]):
@@ -50,26 +50,12 @@ def thisIsCool():                    # This is our function that opens a specifi
                     break
 
 
-def thisIsSweet():                    # This is our function that opens a specific text file and then searches through it for Identifierss
-    with open(filePath) as f:
-        for line in f:
-            for i in myNames:
-                if str(i) != str(line[10:19]):
-                    continue
-                elif str(i) == str(line[10:19]):
-                    print(line)
-                    helloFile.write(line)
-                    break
-                else:
-                    break  # Doesn't even get used..
-
-
-def glcNumbers():
-    for columnOfCellObjects in glc_sheet["A1" : "A500"]:
+def stateNumbers():
+    for columnOfCellObjects in state_sheet["A1" : "A500"]:
         for cellObj in columnOfCellObjects:
             if cellObj.value != "":
-                glc_emptyList.append(cellObj.value)
-    return(glc_emptyList)
+                state_emptyList.append(cellObj.value)
+    return(state_emptyList)
 
 
 while True:                     # Now my state reporting has a choose file on top of it
