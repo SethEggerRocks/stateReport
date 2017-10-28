@@ -1,22 +1,31 @@
+import tkinter as tk
+from tkinter import filedialog
 import openpyxl
+import datetime
+
+now = datetime.datetime.now()
+today = (str(now.month) + str(now.day) + str(now.year))
+
+root = tk.Tk()
+root.withdraw()
 
 
-print("What is the name of the file you would like to create? \n")          # "/Users/nichodeturbo/Desktop/dunno.txt"
-userFileName = input()
-helloPath = ("/Users/nichodeturbo/Desktop/Python_Code/" + str(userFileName))
-helloFile = open(helloPath, "w")                                            # This opens the text file to be written to.
-bigCount = 0                                                                # We will use this for a starting place for our counter.
+          # "/Users/nichodeturbo/Desktop/dunno.txt"
+userFileName = today
+helloPath3 = ("/Users/nichodeturbo/Desktop/Python_Code/" + "09" + str(now.month) + str(now.day))
+helloFile3 = open(helloPath3, "w")
+bigCount = 0
+
+file_path = filedialog.askopenfilename()
+helloFile = open(file_path, "r")
+
+file_path2 = filedialog.askopenfilename()
+helloFile2 = open(file_path2, "r")
 
 
-print("Enter the name of the file you would like to sift through.\n")       # /Users/nichodeturbo/Desktop/090117cs.txt (example path)
-sift = input()
-filePath = ("/Users/nichodeturbo/Desktop/Python_Code/" + str(sift))
-
-
-glc_wb = openpyxl.load_workbook("/Users/nichodeturbo/Desktop/Python_Code/Identifiers.xlsx") # This spreadsheet contains all the identifiers I need
+glc_wb = openpyxl.load_workbook(file_path2) # This spreadsheet contains all the identifiers I need
 glc_sheet = glc_wb.get_sheet_by_name("Sheet1")                                              #to match against the larger .txt file ("allPeeps.txt")
 glc_otherThing = glc_sheet.max_row
-
 
 glc_emptyList = []
 glc_asaList = []
@@ -25,16 +34,9 @@ glc_arrestedList = []
 glc_dischargedList = []
 
 
-def glcNumbers():
-    for columnOfCellObjects in glc_sheet["A1" : "A500"]:
-        for cellObj in columnOfCellObjects:
-            if cellObj.value != "":
-                glc_emptyList.append(cellObj.value)
-    return(glc_emptyList)
-
 
 def thisIsCool():                    # This is our function that opens a specific text file and then searches through it for Identifierss
-    with open(filePath) as f:
+    with open(file_path) as f:
         glcNumbers()
         for line in f:
             for i in glc_emptyList:
@@ -42,7 +44,7 @@ def thisIsCool():                    # This is our function that opens a specifi
                     continue
                 elif str(i) == str(line[10:19]):
                     print(line)
-                    helloFile.write(line)
+                    helloFile3.write(line)
                     break
                 else:
                     break
@@ -63,18 +65,14 @@ def thisIsSweet():                    # This is our function that opens a specif
                     break  # Doesn't even get used..
 
 
+def glcNumbers():
+    for columnOfCellObjects in glc_sheet["A1" : "A500"]:
+        for cellObj in columnOfCellObjects:
+            if cellObj.value != "":
+                glc_emptyList.append(cellObj.value)
+    return(glc_emptyList)
 
-
-print("Press enter to start the program.")
-identifier = input()
-
-while bigCount <= 1:                  # This allows for the thisIsSweet() to be called 1 time
-    if identifier == "n":                    # This allows for a way to exit the program once you have all of your data
-        helloFile.close()
-        exit()
-    else:
-        thisIsCool()                 # This begins the function which we pull lines from one file and write them to another
-        break               # file, only if they contain the criteria designed for the function
-
-        # I wish i could  sift through lines of text and only write the 9 characters after every other line of ********  (9 of them)
-        # Then I could make it read the event report and place them in a list and then just call that and cut out the ssnFile completely
+while True:                  # This allows for the thisIsSweet() to be called 1 time
+    thisIsCool()
+    break
+exit()
