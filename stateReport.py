@@ -61,4 +61,6 @@ def stateNumbers():
 while True:                     # Now my state reporting has a choose file on top of it
     thisIsCool()                # which has some huge implications
     break
-exit()
+exit()                          # I want to make this program run for the python 2.7 version as well
+                                # I need to see if the choose file method will work for choosing a folder
+                                # And then concatenating it with a timestamp and a + ".txt" to write to a file path.
